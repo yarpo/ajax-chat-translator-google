@@ -8,6 +8,18 @@
 			padding:0;
 			margin:0;
 		}
+
+                .translated
+                {
+                    display: none;
+                    font-size: 80%;
+                    color: #333;
+                    border: 1px solid #eee;
+                    background: #eee;
+                    padding: 5px;
+                    margin: 5px;
+                }
+}
 	</style>
 	[STYLE_SHEETS/]
 	<!--[if lt IE 7]>
@@ -16,28 +28,35 @@
 			var isIElt7 = true;
 		</script>
 	<![endif]-->
-	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript">
 		google.load("language", "1");
 
 		function translate(id)
 		{
-			window.setTimeout(function() {
-				
-				var text = $('#translation_' + id).html();
+                    window.setTimeout(function() {
+        		var text = $('#translation_' + id).html();
+                        langOut = ajaxChat.langCode;
 
-				langIn = 'pl';
-				langOut = 'en';
+                        google.language.detect(text, function(detection) {
+                            if (!detection.error && detection.language) {
 
-				google.language.translate(text, langIn, langOut, function(result) 
-				{
-					if (!result.error) 
-					{
-						$('#translation_' + id).html(result.translation);
-					}
-				});
-			}, 1000);
+                                google.language.translate(text, detection.language, langOut, function(result)
+                                {
+                                        if (!result.error)
+                                        {
+                                            if (result.translation.toLowerCase() != text.toLowerCase())
+                                            {
+                                                $('#translation_' + id)
+                                                    .html(result.translation)
+                                                    .slideDown();
+                                            }
+                                        }
+                                });
+                            }
+                        })
+                    }, 1000);
 		}
 	</script>
 	
@@ -120,26 +139,9 @@
 			ajaxChatConfig.socketServerHost = decodeURIComponent('[SOCKET_SERVER_HOST/]');
 			ajaxChatConfig.socketServerPort = parseInt('[SOCKET_SERVER_PORT/]');
 			ajaxChatConfig.socketServerChatID = parseInt('[SOCKET_SERVER_CHAT_ID/]');
-		
+
 			ajaxChat.init(ajaxChatConfig, ajaxChatLang, true, true, true, initialize);
 		// ]]>
-	</script>
-	
-	
-	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
-	<script type="text/javascript">
-	
-	function stripChatContent( code )
-	{
-		return code;
-	}
-	
-	$(document).ready(function() {
-		$('.rowOdd, .rowEven').live('click', function() {
-			translate(this.id);
-		});
-	});
 	</script>
 </head>
 

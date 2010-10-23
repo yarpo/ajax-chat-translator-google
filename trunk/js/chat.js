@@ -90,13 +90,13 @@ var ajaxChat = {
 	DOMbufferRowClass: 'rowOdd',
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
-		this.httpRequest		= new Object();
-		this.usersList			= new Array();
-		this.userNamesList		= new Array();
-		this.userMenuCounter	= 0;
-		this.lastID				= 0;
-		this.localID			= 0;
-		this.lang				= lang;		
+		this.httpRequest   = {};
+		this.usersList     = [];
+		this.userNamesList = [];
+		this.userMenuCounter  = 0;
+		this.lastID	      = 0;
+		this.localID	      = 0;
+		this.lang	      = lang;
 		this.initConfig(config);
 		this.initDirectories();		
 		if(initSettings) {
@@ -1248,7 +1248,7 @@ var ajaxChat = {
 				+ '</span>'
 				+ colon
 				+ content
-				+ '<hr /><div id="translation_' + this.getMessageDocumentID(messageID) 
+				+ '<div class="translated" id="translation_' + this.getMessageDocumentID(messageID)
 				+ '">' + content + '</div>'
 				+ '</div>';
 	},

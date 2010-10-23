@@ -15,18 +15,20 @@ class AJAXChatHTTPHeader {
 	var $_noCache;
 
 	function AJAXChatHTTPHeader($encoding='UTF-8', $contentType=null, $noCache=true) {
-		if($contentType) {
-			$this->_contentType = $contentType.'; charset='.$encoding;
-			$this->_constant = true;
-		} else {
-			//if(isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') !== false)) {
-			//	$this->_contentType = 'application/xhtml+xml; charset='.$encoding;
-			//} else {
-	 			$this->_contentType = 'text/html; charset='.$encoding;
-			//}
-			$this->_constant = false;
-		}
-		$this->_noCache = $noCache;
+            $this->_contentType = 'text/html; charset='.$encoding;
+            if($contentType) {
+		//$this->_contentType = $contentType.'; charset='.$encoding;
+		$this->_constant = true;
+            } else {
+                // poki nie uda sie zintegrowac z google api xml uzywac tylko html
+                //if(isset($_SERVER['HTTP_ACCEPT']) && (strpos($_SERVER['HTTP_ACCEPT'],'application/xhtml+xml') !== false)) {
+		//	$this->_contentType = 'application/xhtml+xml; charset='.$encoding;
+		//} else {
+                //      $this->_contentType = 'text/html; charset='.$encoding;
+                //}
+                $this->_constant = false;
+            }
+            $this->_noCache = $noCache;
 	}
 
 	// Method to send the HTTP header:
