@@ -33,6 +33,12 @@
 	<script type="text/javascript">
 		google.load("language", "1");
 
+                function scrollList()
+                {
+                    var chatList = document.getElementById('chatList');
+                    chatList.scrollTop = chatList.scrollHeight;
+                }
+
 		function translate(id)
 		{
                     window.setTimeout(function() {
@@ -51,6 +57,12 @@
                                                 $('#translation_' + id)
                                                     .html(result.translation)
                                                     .slideDown();
+                                                window.setTimeout(function() {
+                                                    scrollList();
+                                                   }, 500
+                                                );
+
+                                                
                                             }
                                         }
                                 });
