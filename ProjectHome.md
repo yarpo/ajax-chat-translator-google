@@ -1,0 +1,1 @@
+Projket wykorzystuję istniejące narzędzia - czat ajakasowy i google translator do automatyczne tłumaczenia rozmowy
